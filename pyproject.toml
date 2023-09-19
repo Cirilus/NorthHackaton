@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "fastapitemplate"
+name = "NorthHackaton"
 version = "0.1.0"
 description = ""
 authors = ["kirill <shkolenko02-03-2004@mail.ru>"]

@@ -13,6 +13,10 @@ loguru = "^0.7.0"
 pytest = "^7.4.0"
 docx = "^0.2.4"
 python-docx = "^0.8.11"
+transformers = {extras = ["torch"], version = "^4.33.2"}
+cython = "^3.0.2"
+accelerate = "^0.23.0"
+torch = ">=2.0.0, !=2.0.1"
 
 
 [build-system]

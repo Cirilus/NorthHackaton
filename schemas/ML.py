@@ -7,7 +7,7 @@ class MlResponse(BaseModel):
 
 
 class MlFileRequest(BaseModel):
-    grammar: bool
+    grammatic: bool
     html_formatting: bool
 
 

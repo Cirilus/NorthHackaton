@@ -3,7 +3,8 @@ import os
 from docx import Document
 from fastapi import UploadFile, HTTPException, APIRouter, File, Depends
 from starlette import status
-
+from ml.spell_checker import check_spell
+from ml.html_tags import add_html_tags
 from schemas.ML import MlResponse, MlTextRequest, MlFileRequest
 
 router = APIRouter(prefix="/api/v1/ml", tags=["ml"])
@@ -31,6 +32,14 @@ async def get_file(req: MlFileRequest = Depends(), file: UploadFile = File(...))
     if text == "":
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="the file must not to be empty")
 
+    if req.grammatic:
+        text = check_spell(text)
+
+    if req.html_formatting:
+        text = add_html_tags(text)
+
+    text = text.replace("\n", "<br>")
+
     return {
         "result": text,
     }
@@ -41,9 +50,19 @@ async def get_file(req: MlFileRequest = Depends(), file: UploadFile = File(...))
     response_model=MlResponse,
 )
 async def get_text(req: MlTextRequest):
+    text = req.text
 
-    if req.text == "":
+    if text == "":
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="the file must not to be empty")
+
+    if req.grammatic:
+        text = check_spell(text)
+
+    if req.html_formatting:
+        text = add_html_tags(text)
+
+    text = text.replace("\n", "")
+
     return {
-        "result": req.text,
+        "result": text,
     }

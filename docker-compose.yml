@@ -30,7 +30,7 @@ services:
 
   nginx:
     build:
-      dockerfile: .docker/nginx/Dockerfile
+      dockerfile: .
       context: .docker/nginx
     container_name: nginx
     volumes:
